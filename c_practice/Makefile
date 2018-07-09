@@ -1,4 +1,7 @@
-all: main sort_test
+all: main sort_test ptr_task
+
+ptr_task: 
+	gcc -lm -o ptr_task ptr_task.c
 
 main: my_lib.a
 	gcc -o main test_all.c my_lib.a
@@ -20,4 +23,4 @@ sort_lib.o: Sources/sort_lib.c
 	gcc -c  Sources/sort_lib.c
 
 clean:
-	rm my_lib.a main sort_test
+	rm my_lib.a main sort_test ptr_task

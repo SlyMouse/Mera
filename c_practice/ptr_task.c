@@ -52,7 +52,7 @@ void print_arr_double(double *array, int i_max, int j_max)
 
 int main()
 {
-    /* Task 4.1
+    // Task 4.1
     void (*func1)(void) = &Func1;
     void (*func2)(int, int) = &Func2;
     int (*func3)(void) = &Func3;
@@ -63,9 +63,8 @@ int main()
     func2(a, b);
     printf("%d\n", func3());
     printf("%d\n", *func4(&a));
-    */
 
-    /* Task 4.2
+    // Task 4.2
     int array1[][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
     printf("%s\n", "Array1");
     print_arr_int(&array1[0][0], 3, 3);
@@ -88,9 +87,8 @@ int main()
              *(*array3 + i * 3 + j) = i * 3 + j + 1;;
     printf("%s\n", "Array3");
     print_arr_int(&array3[0][0], 3, 3);
-    */
 
-    /* Task 4.3
+    // Task 4.3
     double (*math[6])(double) = {&sin, &cos, &tan, &exp, &log, &fabs};
     double angle[6] = {-PI/2, -PI/3, -PI/6, 0, PI/4, PI};
 
@@ -100,7 +98,6 @@ int main()
             results[func][val] = (*math[func])(angle[val]);
 
     print_arr_double(&results[0][0], 6, 6);
-    */
 
    
 
