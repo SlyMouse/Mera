@@ -12,7 +12,7 @@
                 "-lm",
                 "-o",
                 "test",
-                "sort_lib.c"
+                "Sources/sort_lib.c"
             ],
             "group": {
                 "kind": "build",

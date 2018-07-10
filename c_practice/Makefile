@@ -1,13 +1,13 @@
 all: main sort_test ptr_task
 
 ptr_task: 
-	gcc -lm -o ptr_task ptr_task.c
+	gcc -lm -g -o ptr_task ptr_task.c
 
 main: my_lib.a
 	gcc -o main test_all.c my_lib.a
 
 sort_test: my_lib.a
-	gcc -o sort_test sort_test.c my_lib.a
+	gcc -g -o sort_test sort_test.c my_lib.a
 
 my_lib.a: str_lib.o bit_lib.o sort_lib.o
 	ar rcs my_lib.a str_lib.o bit_lib.o sort_lib.o

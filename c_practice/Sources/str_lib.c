@@ -33,10 +33,7 @@ void * mymemmove (void *dest, const void *source, size_t len)
     else return dest;
 
     for(size_t count = beg; count != end; count += change)
-    {
         dest_str[count] = source_str[count];
-        source_str[count] = '\0';
-    }
 
     return dest;
 }
@@ -48,11 +45,14 @@ char * strtrns (const char *string, const char *old, const char *new, char *resu
     for(size_t count = 0; count < mystrlen(string); count++)
     {
         if((replace = strchr(old, string[count])) != NULL)
-        {
-            ch = string + count;
-            ch[0] = new[replace - old];
-        }
+            *ch = new[replace - old];
+        else
+            *ch = string[count];
+
+        *(result + count) = *ch;
     }
+
+    *(result + mystrlen(string)) = '\0';
 
     return result;
 }

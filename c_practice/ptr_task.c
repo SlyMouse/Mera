@@ -70,23 +70,30 @@ int main()
     print_arr_int(&array1[0][0], 3, 3);
     
     int **array2 = (int**)malloc(sizeof(int*) * 3);
+    if(!array2)
+        return 1;
     for(int i = 0; i < 3; i++)
     {
         array2[i] = (int*)malloc(sizeof(int) * 3);
+        if(!array2[i])
+            return 1;
         for(int j = 0; j < 3; j++)
             *(*array2 + i * 3 + j) = i * 3 + j + 1;
     }
     printf("%s\n", "Array2");
     print_arr_int(&array2[0][0], 3, 3);
     
-    int *array3[] = {(int*)malloc(sizeof(int) * 3), 
-                    (int*)malloc(sizeof(int) * 3), 
-                    (int*)malloc(sizeof(int) * 3)};
+    int *array3[] = {(int*)malloc(sizeof(int) * 9)};
+    if(!array3)
+        return 1;
     for(int i = 0; i < 3; i++)
         for(int j = 0; j < 3; j++)
              *(*array3 + i * 3 + j) = i * 3 + j + 1;;
     printf("%s\n", "Array3");
     print_arr_int(&array3[0][0], 3, 3);
+
+    free(array2);
+    free(array3[0]);
 
     // Task 4.3
     double (*math[6])(double) = {&sin, &cos, &tan, &exp, &log, &fabs};
@@ -98,8 +105,6 @@ int main()
             results[func][val] = (*math[func])(angle[val]);
 
     print_arr_double(&results[0][0], 6, 6);
-
-   
 
     return 0;
 }

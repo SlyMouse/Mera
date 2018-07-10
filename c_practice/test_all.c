@@ -1,6 +1,7 @@
 #include "Headers/str_lib.h"
 #include "Headers/bit_lib.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 int main()
@@ -20,7 +21,7 @@ int main()
     char *buf1 = buffer + 4;
     char *buf2 = buffer;
     char *buf3 = buffer + 2;
-    printf("Copy left: %s\n", mymemmove(buf2, buf1, mystrlen(buf1) + 1));
+    printf("Copy left: %s\n", memmove(buf2, buf1, mystrlen(buf1) + 1));
     printf("Copy right: %s\n", mymemmove(buf3, buf2, mystrlen(buf2) + 1));
     printf("\n");
 
@@ -34,15 +35,12 @@ int main()
 
     old_symbols = "abcdefghijklmnopqrstuvwxyz";
     new_symbols = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    strcpy(string, "Another example");
-    printf ("Another text: %s\n", strtrns(string, old_symbols, new_symbols, string));
+    printf ("Another text: %s\n", strtrns("Another example", old_symbols, new_symbols, string));
 
     new_symbols = "bcdefghijklmnopqrstuvwxyza";
-    strcpy(string, "secret message");
-    printf ("Encrypted text: %s\n", strtrns (string, old_symbols, new_symbols, string));
+    printf ("Encrypted text: %s\n", strtrns ("secret message", old_symbols, new_symbols, string));
     printf ("Decrypted text: %s\n", strtrns (string, new_symbols, old_symbols, string));
-    printf("\n");
-   
+
     // Task 3
     printf("Task 3\n");
     for(int i = 0; i < 9; i++)
