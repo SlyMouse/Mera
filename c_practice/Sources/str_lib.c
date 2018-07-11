@@ -41,15 +41,15 @@ void * mymemmove (void *dest, const void *source, size_t len)
 char * strtrns (const char *string, const char *old, const char *new, char *result)
 {
     char *replace;
-    char *ch;
+    char ch;
     for(size_t count = 0; count < mystrlen(string); count++)
     {
         if((replace = strchr(old, string[count])) != NULL)
-            *ch = new[replace - old];
+            ch = new[replace - old];
         else
-            *ch = string[count];
+            ch = string[count];
 
-        *(result + count) = *ch;
+        *(result + count) = ch;
     }
 
     *(result + mystrlen(string)) = '\0';

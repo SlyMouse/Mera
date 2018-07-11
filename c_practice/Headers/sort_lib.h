@@ -9,5 +9,8 @@ int check_order_char (char * array, int len);
 int intcompare (const void * a, const void * b);
 int doublecompare (const void *a, const void * b);
 int charcompare (const void *a, const void * b);
+int strcompare (const void *a, const void * b);
+int strlowcompare (const void *a, const void * b);
+int strnumcompare (const void *a, const void * b);
 
 void my_usort ( void * base, size_t num, size_t size, int ( * comparator ) ( const void *, const void * ) );

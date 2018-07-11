@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
+#include <ctype.h>
 #include "../Headers/sort_lib.h"
 
 void mysort(int *array, int len)
@@ -28,7 +30,7 @@ void init_array(int *array, int len)
 int check_order_int (int *array, int len)
 {
     for(int i = 1; i < len; i++)
-        if(array[i] > array[i-1])
+        if(array[i] < array[i-1])
             return 1;
     return 0;
 }
@@ -36,7 +38,7 @@ int check_order_int (int *array, int len)
 int check_order_double (double *array, int len)
 {
     for(int i = 1; i < len; i++)
-        if(array[i] > array[i-1])
+        if(array[i] < array[i-1])
             return 1;
     return 0;
 }
@@ -44,7 +46,7 @@ int check_order_double (double *array, int len)
 int check_order_char (char *array, int len)
 {
     for(int i = 1; i < len; i++)
-        if(array[i] > array[i-1])
+        if(array[i] < array[i-1])
             return 1;
     return 0;
 }
@@ -88,25 +90,64 @@ int charcompare (const void *a, const void * b)
         return -1;
 }
 
-void swap_int (int *a, int *b)
+int strcompare (const void *a, const void * b)
 {
-    int temp = *a;
-    *a = *b;
-    *b = temp;
+    const char *a_val = *(char **)a;
+    const char *b_val = *(char **)b;
+    
+    return strcmp(a_val, b_val);
 }
 
-void swap_double (double *a, double *b)
+char * strtolower (char *str)
 {
-    double temp = *a;
-    *a = *b;
-    *b = temp;
+    char *str_low = (char *)malloc(strlen(str));
+    for(size_t i = 0; i < strlen(str); i++)
+        str_low[i] = tolower(str[i]);
+    return str_low;
 }
 
-void swap_char (char *a, char *b)
+int strlowcompare (const void *a, const void * b)
 {
-    char temp = *a;
-    *a = *b;
-    *b = temp;
+    char *a_val = *(char **)a;
+    char *b_val = *(char **)b;
+
+    char *a_val_low = strtolower(a_val);
+    char *b_val_low = strtolower(b_val);
+
+    int result = strcmp(a_val_low, b_val_low);
+
+    free(a_val_low);
+    free(b_val_low);
+
+    return result;
+}
+
+int strnumcompare (const void *a, const void * b)
+{
+    char *a_val = *(char **)a;
+    char *b_val = *(char **)b;
+
+    long a_val_num = strtol(a_val, NULL, 10);
+    long b_val_num = strtol(b_val, NULL, 10);
+    
+    if(a_val_num == b_val_num)
+        return 0;
+    else if(a_val_num > b_val_num)
+        return 1;
+    else 
+        return -1;
+}
+
+void swap (void *a, void *b, size_t size)
+{
+    size_t __size = size;                                                     
+    char *__a = a, *__b = b;                                             
+    do                                                                    
+    {                                                                     
+        char __tmp = *__a;                                                      
+        *__a++ = *__b;                                                      
+        *__b++ = __tmp;                                                      
+    } while (--__size > 0);  
 }
 
 void my_usort(void *base, size_t num, size_t size, int (*comparator) (const void*, const void*))
@@ -115,39 +156,15 @@ void my_usort(void *base, size_t num, size_t size, int (*comparator) (const void
     int i, j;
     int index_left;
     int index_right;
-    void (*swap)(void*, void*);
-    switch(size)
-    {
-        case sizeof(int): swap = &swap_int; break;
-        case sizeof(double): swap = &swap_double; break;
-        case sizeof(char): swap = &swap_char; break;
-    }
+
     for (i = 0; i < num-1; i++)      
         for (j = 0; j < num-i-1; j++)
         {
             index_left = j * size;
             index_right = (j + 1) * size;
-            if (comparator(arr_ptr + index_left, arr_ptr + index_right) < 0)
+            if (comparator(arr_ptr + index_left, arr_ptr + index_right) > 0)
             {    
-                swap(arr_ptr + index_left, arr_ptr + index_right);
+                swap(arr_ptr + index_left, arr_ptr + index_right, size);
             }
         }
-}
-
-int main()
-{
-    int array_int[] = {2, 3, 7, 5, 5, 8};
-    double array_double[] = {5.54364, 3.46346, 7.46346, 5.75437, 5.4365467, 8.4363634};
-    char array_char[] = {'a', 'g', 'z', 't', 'w', 'v'};
-    int len = 6;
-
-    my_usort(&array_int[0], len, sizeof(int), &intcompare);
-    my_usort(&array_double[0], len, sizeof(double), &doublecompare);
-    my_usort(&array_char[0], len, sizeof(char), &charcompare);
-
-    for(size_t i = 0; i < len; i++)
-        printf("%d %lf %c\n", array_int[i], array_double[i], array_char[i]);
-    printf("\n");
-
-    return 0;
 }
