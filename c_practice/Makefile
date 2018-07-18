@@ -1,4 +1,4 @@
-all: mysort
+all: mysort main
 
 mysort: my_lib.a
 	gcc -g -o mysort mysort.c my_lib.a
