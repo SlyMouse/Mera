@@ -11,8 +11,8 @@ int main()
 
     b.SetLength(65);
     b = (b << 41) | b;
-    std::cout << "3:" << b << std::endl;
-    std::cout << "4:" << ~b << std::endl;
+    std::cout << "3: " << b << std::endl;
+    std::cout << "4: " << ~b << std::endl;
 
 
     return 0;

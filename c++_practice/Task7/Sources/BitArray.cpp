@@ -134,6 +134,25 @@ BitArray::BitArray(BitArray &other)
     *this = other;
 }
 
+std::string printBlock(unsigned block, int limit)
+{
+    int count = 0;
+    std::string binary = "";
+    while(count < limit)
+        {
+        if(count % 8 == 0 && count)
+            binary.insert(0, " ");
+        if(block % 2)
+             binary.insert(0, "1");
+        else
+            binary.insert(0, "0");  
+        count++;
+        block /= 2;         
+    }
+
+    return binary;
+}
+
 std::ostream &operator<<(std::ostream &output, const BitArray &arr)
 {
     std::string binary = "";
@@ -143,38 +162,12 @@ std::ostream &operator<<(std::ostream &output, const BitArray &arr)
     if(last_size)
     {
         unsigned last_block = arr.vec.back();
-        while(count < last_size)
-        {
-            if(count % 8 == 0 && count)
-                binary.insert(0, " ");
-            if(last_block % 2)
-                binary.insert(0, "1");
-            else
-                binary.insert(0, "0");  
-            count++;
-            last_block /= 2;         
-        }
-
-        output << binary << " ";
+        output << printBlock(last_block, last_size) << " ";
     }
     for(int i = last_index - 1; i > -1; i--)
     {
-        count = 0;
-        binary = "";
         unsigned block = arr.vec[i];
-        while(count < 32)
-        {
-            if(count % 8 == 0 && count)
-                binary.insert(0, " ");
-            if(block % 2)
-                binary.insert(0, "1");
-            else
-                binary.insert(0, "0");  
-            count++;
-            block /= 2;         
-        }
-
-        output << binary << " ";
+        output << printBlock(block, 32) << " ";
     }
 
     return output;
