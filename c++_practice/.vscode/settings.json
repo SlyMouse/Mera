@@ -33,6 +33,7 @@
         "vector": "cpp",
         "fstream": "cpp",
         "optional": "cpp",
-        "cstdarg": "cpp"
+        "cstdarg": "cpp",
+        "deque": "cpp"
     }
 }

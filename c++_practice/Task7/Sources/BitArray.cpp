@@ -167,7 +167,9 @@ std::ostream &operator<<(std::ostream &output, const BitArray &arr)
     for(int i = last_index - 1; i > -1; i--)
     {
         unsigned block = arr.vec[i];
-        output << printBlock(block, 32) << " ";
+        output << printBlock(block, 32);
+        if(i)
+            output << " ";
     }
 
     return output;

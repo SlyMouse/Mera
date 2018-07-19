@@ -8,7 +8,11 @@ SymmetricMatrix::SymmetricMatrix(int n): size_(n)
     try{
         arr_ = new int*[n];
         for(int i = 0; i < n; i++)
+        {
             arr_[i] = new int[i+1];
+            for(int j = 0; j < i + 1; j++)
+                arr_[i][j] = 0;
+        }
     }
     catch(std::bad_alloc& ba)
     {
@@ -26,7 +30,7 @@ SymmetricMatrix::~SymmetricMatrix()
 
 int& SymmetricMatrix::operator()(int x, int y)
 {
-    if(y < x)
+    if(y > x)
     {
         int temp = y;
         y = x;
@@ -56,7 +60,11 @@ void SymmetricMatrix::operator=(SymmetricMatrix &other)
         try{
             arr_ = new int*[size_];
             for(int i = 0; i < size_; i++)
+            {
                 arr_[i] = new int[i+1];
+                for(int j = 0; j < i + 1; j++)
+                    arr_[i][j] = 0;
+            }
         }
         catch(std::bad_alloc& ba)
         {
@@ -65,7 +73,7 @@ void SymmetricMatrix::operator=(SymmetricMatrix &other)
         }
     }
     for(int i = 0; i < size_; i++)
-        for(int j = i; j < size_; j++)
+        for(int j = 0; j <= i; j++)
             arr_[i][j] = other(i, j);
 }
 
